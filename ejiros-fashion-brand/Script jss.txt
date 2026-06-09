@@ -1,0 +1,105 @@
+let currentSlideIndex = 0;
+
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+
+function showSlide(i) {
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+
+  if (slides[i]) slides[i].classList.add('active');
+  if (dots[i]) dots[i].classList.add('active');
+}
+
+function nextSlide() {
+  currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+  showSlide(currentSlideIndex);
+}
+
+function prevSlide() {
+  currentSlideIndex =
+    (currentSlideIndex - 1 + slides.length) % slides.length;
+  showSlide(currentSlideIndex);
+}
+
+function currentSlide(i) {
+  currentSlideIndex = i;
+  showSlide(i);
+}
+
+setInterval(nextSlide, 8000);
+
+// menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle?.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+// products
+async function loadProducts() {
+  try {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+
+    const featured = data.filter(p => p.category === "featured");
+    const arrivals = data.filter(p => p.category === "arrivals");
+
+    displayProducts(featured, "featuredProducts");
+    displayProducts(arrivals, "arrivalsProducts");
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function displayProducts(products, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  products.forEach((p, i) => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+
+    div.innerHTML = `
+      <div class="product-image-wrapper">
+        <img src="${p.image}" class="product-image">
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">${p.name}</h3>
+        <p class="product-price">₦${p.price.toLocaleString()}</p>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+document.getElementById("contactForm")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: name.value,
+    email: email.value,
+    message: message.value
+  };
+
+  await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  showToast("Message sent!");
+});
+
+document.addEventListener("DOMContentLoaded", loadProducts);
