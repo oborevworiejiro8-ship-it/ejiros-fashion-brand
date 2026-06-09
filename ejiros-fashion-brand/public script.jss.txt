@@ -1,0 +1,55 @@
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function saveCart(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function updateBadge(){
+  document.querySelector(".badge").textContent = cart.length;
+}
+
+function toggleCart(){
+  document.getElementById("cartDrawer").classList.toggle("active");
+  renderCart();
+}
+
+function addToCart(name, price){
+  cart.push({ name, price });
+  saveCart();
+  updateBadge();
+  showToast(`${name} added to cart`);
+}
+
+function renderCart(){
+  const container = document.getElementById("cartItems");
+  const totalEl = document.getElementById("cartTotal");
+
+  container.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price;
+
+    const div = document.createElement("div");
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <span>${item.name}</span>
+      <span>₦${item.price.toLocaleString()}</span>
+    `;
+
+    container.appendChild(div);
+  });
+
+  totalEl.textContent = total.toLocaleString();
+}
+
+function clearCart(){
+  cart = [];
+  saveCart();
+  updateBadge();
+  renderCart();
+}
+
+updateBadge();

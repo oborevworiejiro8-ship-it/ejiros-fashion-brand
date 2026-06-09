@@ -1,0 +1,92 @@
+<div id="cartDrawer" class="cart-drawer">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+
+  <div class="cart-footer">
+    <h3>Total: $<span id="cartTotal">0</span></h3>
+    <button onclick="clearCart()" class="submit-btn">Clear Cart</button>
+  </div>
+</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EJIRO - Premium Luxury Fashion</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <span class="logo-text">EJIRO</span>
+      <span class="logo-sub">LUXURY</span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link">HOME</a></li>
+      <li><a href="#featured" class="nav-link">COLLECTION</a></li>
+      <li><a href="#arrivals" class="nav-link">NEW</a></li>
+      <li><a href="#contact" class="nav-link">CONTACT</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="#" class="nav-icon">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="badge">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section id="home" class="hero">
+  <div class="hero-slider">
+    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1600&h=900&fit=crop')">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">LUXURY REDEFINED</h1>
+        <p class="hero-description">Premium Fashion for the Modern Individual</p>
+        <a href="#featured" class="hero-btn">SHOP NOW</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="featured" class="featured">
+  <h2 class="section-title">Featured Essentials</h2>
+  <div class="products-grid" id="featuredProducts"></div>
+</section>
+
+<section id="arrivals" class="arrivals">
+  <h2 class="section-title">New Arrivals</h2>
+  <div class="products-grid" id="arrivalsProducts"></div>
+</section>
+
+<section id="contact" class="contact">
+  <h2 class="section-title">Get In Touch</h2>
+
+  <form class="contact-form" id="contactForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <textarea id="message" placeholder="Message" required></textarea>
+    <button type="submit" class="submit-btn">SEND</button>
+  </form>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2025 EJIRO. All Rights Reserved.</p>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
